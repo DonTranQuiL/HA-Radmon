@@ -7,6 +7,11 @@ This custom component for Home Assistant allows you to monitor radiation data fr
 
 This integration was created with significant collaboration, testing, and debugging from **TranQuiL (@Malosaaa)**.
 
+IMPORTANT NOTICE!!!
+I WILL START REWRITING THE WHOLE CODE AS RIGHT NOW IT DOESNT USE THE PERSISTANT MODE!!
+U STILL CAN USE IT BUT ITS UNSTABLE NOW!!!
+
+
 ***
 
 ## Features
