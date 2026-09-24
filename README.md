@@ -14,6 +14,13 @@ U STILL CAN USE IT BUT ITS UNSTABLE NOW!!!
 
 ***
 
+
+## Community
+
+[![Discord](https://img.shields.io/badge/Discord-join%20community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/qaHPTTKHae)
+
+Join the DonTranQuiL Discord for support and updates.
+
 ## Features
 
 *   ✅ **Easy UI-Based Setup**: Configure entirely through the Home Assistant user interface. No YAML required.
