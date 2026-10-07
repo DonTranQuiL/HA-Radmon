@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discord community
+    url: https://discord.gg/qaHPTTKHae
+    about: Chat with other DonTranQuiL users and get help.
+  - name: Ask a question
+    url: https://github.com/DonTranQuiL/HA-Radmon/discussions
+    about: Please ask and answer questions in GitHub Discussions instead of opening an issue.

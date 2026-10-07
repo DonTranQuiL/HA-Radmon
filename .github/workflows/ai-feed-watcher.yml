@@ -1,0 +1,62 @@
+name: AI Radmon API Watcher
+
+# Daily check that the radmon.org endpoints Radmon uses (ping, showuserpage,
+# lastreading auth responses) still behave as documented. Six tiny requests a
+# day; opens an issue only when a check newly fails.
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: feed-watcher
+  cancel-in-progress: false
+
+jobs:
+  schema-audit:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install Dependencies
+        run: pip install requests openai
+
+      - name: Run Radmon API Watcher
+        id: watcher
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+        run: python ai_engineer/feed_watcher.py
+
+      - name: Create Issue
+        if: env.SCHEMA_CHANGED == 'true'
+        uses: peter-evans/create-issue-from-file@v6
+        with:
+          title: ${{ env.ISSUE_TITLE }}
+          content-filepath: ./feed_watch_report.md
+          labels: bug, upstream-change, ai-detected
+
+      - name: Save API Memory Snapshots
+        run: |
+          mkdir -p .memory
+          if [ -z "$(git status --porcelain -- .memory)" ]; then
+            echo "Memory is already up to date"
+            exit 0
+          fi
+          git config user.name "AI Staff Engineer"
+          git config user.email "ai@github.com"
+          git add -- .memory/
+          git commit -m "chore: update radmon.org API baseline [skip ci]" || { echo "Memory is already up to date"; exit 0; }
+          git pull --rebase --quiet || true
+          git push
