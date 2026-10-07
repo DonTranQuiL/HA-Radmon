@@ -1,0 +1,16 @@
+{
+  "entity": {
+    "sensor": {
+      "cpm": { "default": "mdi:radioactive" },
+      "dose_rate": { "default": "mdi:radioactive-circle-outline" },
+      "last_reading": { "default": "mdi:clock-check-outline" },
+      "consecutive_errors": { "default": "mdi:alert-circle-outline" },
+      "last_update_status": { "default": "mdi:cloud-check-outline" },
+      "last_update_time": { "default": "mdi:clock-outline" }
+    },
+    "binary_sensor": {
+      "online": { "default": "mdi:access-point-network-off", "state": { "on": "mdi:access-point-network" } },
+      "alert": { "default": "mdi:shield-check", "state": { "on": "mdi:radioactive-circle" } }
+    }
+  }
+}

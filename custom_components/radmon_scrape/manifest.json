@@ -1,0 +1,13 @@
+{
+  "domain": "radmon_scrape",
+  "name": "Radmon",
+  "codeowners": ["@DonTranQuiL"],
+  "config_flow": true,
+  "documentation": "https://github.com/DonTranQuiL/HA-Radmon",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/DonTranQuiL/HA-Radmon/issues",
+  "loggers": ["custom_components.radmon_scrape"],
+  "requirements": [],
+  "version": "2.0.0"
+}

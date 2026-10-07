@@ -1,0 +1,73 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Een radmon.org-station toevoegen",
+        "description": "Vul de stationsnaam in precies zoals die in de [stationslijst]({stations_url}) staat.\n\n**Je eigen station?** Vul dan ook het data-verzendwachtwoord in. De eigenaarsmodus gebruikt de officiële last-reading-API van radmon.org, die sinds mei 2026 dit wachtwoord vraagt, en levert de eigen µSv/h-waarde van het station.\n\n**Station van iemand anders?** Laat het wachtwoord leeg. De openbare stationspagina wordt elke 30 minuten gelezen en het dosistempo wordt uit de CPM berekend.",
+        "data": {
+          "station": "Stationsnaam",
+          "password": "Data-verzendwachtwoord (optioneel)"
+        },
+        "data_description": {
+          "station": "Hoofdlettergevoelig, bijvoorbeeld lImbus.",
+          "password": "Het wachtwoord waarmee je geigerteller metingen verstuurt. Alleen voor je eigen station."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Nieuw data-verzendwachtwoord",
+        "description": "radmon.org heeft het data-verzendwachtwoord voor station {station} geweigerd. Vul het huidige wachtwoord in.",
+        "data": { "password": "Data-verzendwachtwoord" }
+      },
+      "reconfigure": {
+        "title": "Verbinding voor {station} wijzigen",
+        "description": "Vul het data-verzendwachtwoord in voor de eigenaarsmodus, of laat het leeg om de openbare stationspagina te lezen.",
+        "data": { "password": "Data-verzendwachtwoord (optioneel)" }
+      }
+    },
+    "error": {
+      "cannot_connect": "radmon.org is niet bereikbaar. Probeer het later opnieuw.",
+      "invalid_auth": "radmon.org heeft de stationsnaam of het data-verzendwachtwoord geweigerd.",
+      "station_not_found": "Dit station heeft geen metingen op radmon.org. Controleer de spelling (namen zijn hoofdlettergevoelig).",
+      "invalid_response": "radmon.org gaf een onverwacht antwoord. Probeer het later opnieuw.",
+      "unknown": "Onverwachte fout. Bekijk de logs."
+    },
+    "abort": {
+      "already_configured": "Dit station is al ingesteld.",
+      "reauth_successful": "Het wachtwoord is bijgewerkt.",
+      "reconfigure_successful": "Het station is opnieuw ingesteld."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Radmon-opties",
+        "description": "Modus: {mode}. Het minimale update-interval in deze modus is {min_interval} minuten, om radmon.org te sparen.",
+        "data": {
+          "scan_interval": "Update-interval",
+          "conversion_factor": "Omrekenfactor (µSv/h per CPM)",
+          "alert_threshold": "Alarmdrempel",
+          "stale_minutes": "Offline na"
+        },
+        "data_description": {
+          "conversion_factor": "Wordt gebruikt om het dosistempo uit CPM te berekenen. 0,0057 past bij een SBM-20-buis. In de eigenaarsmodus wordt de eigen µSv/h-waarde van het station gebruikt als die er is.",
+          "alert_threshold": "De alarm-binaire sensor gaat aan bij deze CPM of hoger.",
+          "stale_minutes": "De online-binaire sensor gaat uit als de laatste meting ouder is dan dit."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "cpm": { "name": "CPM" },
+      "dose_rate": { "name": "Dosistempo" },
+      "last_reading": { "name": "Laatste meting" },
+      "consecutive_errors": { "name": "Opeenvolgende updatefouten" },
+      "last_update_status": { "name": "Laatste updatestatus" },
+      "last_update_time": { "name": "Laatste updatetijd" }
+    },
+    "binary_sensor": {
+      "online": { "name": "Online" },
+      "alert": { "name": "Stralingsalarm" }
+    }
+  }
+}

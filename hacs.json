@@ -1,12 +1,6 @@
 {
-  "name": "Radmon.org Scraper",
-  "content_in_root": false,	
-  "render_readme": true,
-  "homeassistant": "2023.8.0",
-  "domains": [
-    "radmon_scrape"
-  ],
-  "documentation_url": "https://github.com/Malosaaa/ha-radmon",
-  "issue_tracker_url": "https://github.com/Malosaaa/ha-radmon/issues",
-  "hide_default_branch": true 
+  "name": "Radmon",
+  "content_in_root": false,
+  "homeassistant": "2025.1.0",
+  "render_readme": true
 }

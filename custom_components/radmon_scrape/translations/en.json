@@ -1,0 +1,73 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add a radmon.org station",
+        "description": "Enter the station name exactly as it appears in the [station list]({stations_url}).\n\n**Your own station?** Also enter its data-sending password. Owner mode uses radmon.org's official last-reading API, which needs this password since May 2026, and gives the station's own µSv/h value.\n\n**Someone else's station?** Leave the password empty. The public station page is read every 30 minutes and the dose rate is calculated from CPM.",
+        "data": {
+          "station": "Station name",
+          "password": "Data-sending password (optional)"
+        },
+        "data_description": {
+          "station": "Case-sensitive, for example lImbus.",
+          "password": "The password your Geiger counter uses to submit readings. Only for your own station."
+        }
+      },
+      "reauth_confirm": {
+        "title": "New data-sending password",
+        "description": "radmon.org rejected the data-sending password for station {station}. Enter the current one.",
+        "data": { "password": "Data-sending password" }
+      },
+      "reconfigure": {
+        "title": "Change the connection for {station}",
+        "description": "Enter the data-sending password to use owner mode, or leave it empty to read the public station page.",
+        "data": { "password": "Data-sending password (optional)" }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach radmon.org. Try again later.",
+      "invalid_auth": "radmon.org rejected the station name or data-sending password.",
+      "station_not_found": "This station has no readings on radmon.org. Check the spelling (names are case-sensitive).",
+      "invalid_response": "radmon.org returned something unexpected. Try again later.",
+      "unknown": "Unexpected error. Check the logs."
+    },
+    "abort": {
+      "already_configured": "This station is already configured.",
+      "reauth_successful": "The password was updated.",
+      "reconfigure_successful": "The station was reconfigured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Radmon options",
+        "description": "Mode: {mode}. The minimum update interval in this mode is {min_interval} minutes, to go easy on radmon.org.",
+        "data": {
+          "scan_interval": "Update interval",
+          "conversion_factor": "Conversion factor (µSv/h per CPM)",
+          "alert_threshold": "Alert threshold",
+          "stale_minutes": "Offline after"
+        },
+        "data_description": {
+          "conversion_factor": "Used to calculate the dose rate from CPM. 0.0057 suits an SBM-20 tube. In owner mode the station's own µSv/h value is used when available.",
+          "alert_threshold": "The alert binary sensor turns on at or above this CPM.",
+          "stale_minutes": "The online binary sensor turns off when the last reading is older than this."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "cpm": { "name": "CPM" },
+      "dose_rate": { "name": "Dose rate" },
+      "last_reading": { "name": "Last reading" },
+      "consecutive_errors": { "name": "Consecutive update errors" },
+      "last_update_status": { "name": "Last update status" },
+      "last_update_time": { "name": "Last update time" }
+    },
+    "binary_sensor": {
+      "online": { "name": "Online" },
+      "alert": { "name": "Radiation alert" }
+    }
+  }
+}
