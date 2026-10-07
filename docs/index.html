@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radmon | Home Assistant</title>
+    <meta name="description" content="Radmon: live background radiation from radmon.org Geiger counter stations in Home Assistant. CPM, µSv/h, an online check and a radiation alert.">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="theme-color" content="#0B1120">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Radmon: live radiation monitoring for Home Assistant">
+    <meta property="og:description" content="CPM, µSv/h, an online check and a radiation alert from any radmon.org Geiger counter station. Owner mode for your own counter.">
+    <meta property="og:url" content="https://dontranquil.github.io/HA-Radmon/">
+    <meta property="og:image" content="https://dontranquil.github.io/HA-Radmon/images/banner.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://dontranquil.github.io/HA-Radmon/images/banner.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#0B1120] text-slate-200 font-sans selection:bg-amber-500/30 overflow-x-hidden">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0B1120]/80 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="https://dontranquil.github.io/" class="flex items-center gap-2 text-white font-bold text-xl tracking-wide">
+                <img src="icon.png" alt="" class="w-7 h-7 rounded-lg">
+                Radmon <span class="text-amber-400 font-light">for HA</span>
+            </a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                <a href="#features" class="hover:text-white transition-colors">Features</a>
+                <a href="#modes" class="hover:text-white transition-colors">Modes</a>
+                <a href="#entities" class="hover:text-white transition-colors">Entities</a>
+                <a href="#automations" class="hover:text-white transition-colors">Automations</a>
+                <a href="#installation" class="hover:text-white transition-colors">Install</a>
+                <a href="https://discord.gg/qaHPTTKHae" target="_blank" class="hover:text-white transition-colors">Discord</a>
+                <a href="https://github.com/DonTranQuiL/HA-Radmon" target="_blank" class="flex items-center gap-2 bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-full transition-all">
+                    <i data-lucide="github" class="w-4 h-4"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-44 lg:pb-24 overflow-hidden">
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <img src="icon.png" alt="Radmon" class="w-28 h-28 mx-auto mb-8 rounded-3xl drop-shadow-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-900/30 border border-amber-500/30 text-amber-300 text-sm font-medium mb-6">
+                Live radiation monitoring for Home Assistant
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6">Every click,<br>on your dashboard.</h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10">Follow any Geiger counter on radmon.org, or your own. Counts per minute, dose rate, an online check and a radiation alert, with history and statistics built in.</p>
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="https://my.home-assistant.io/redirect/hacs_repository/?owner=DonTranQuiL&amp;repository=HA-Radmon&amp;category=integration" class="px-6 py-3 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-semibold inline-flex items-center gap-2"><i data-lucide="download" class="w-4 h-4"></i> Open in HACS</a>
+                <a href="#modes" class="px-6 py-3 rounded-full border border-cyan-500/50 text-cyan-200 hover:border-cyan-300">Owner or public?</a>
+                <a href="https://github.com/DonTranQuiL/HA-Radmon/releases" class="px-6 py-3 rounded-full border border-slate-600 text-slate-200 hover:border-slate-400">Releases</a>
+            </div>
+            <div class="mt-12 flex flex-wrap justify-center gap-3 text-sm">
+                <span class="px-4 py-1.5 rounded-full border border-amber-400/60 bg-amber-400/10 text-amber-300 font-semibold">CPM + µSv/h</span>
+                <span class="px-4 py-1.5 rounded-full border border-amber-400/60 bg-amber-400/10 text-amber-300 font-semibold">Radiation alert</span>
+                <span class="px-4 py-1.5 rounded-full border border-cyan-400/60 bg-cyan-400/10 text-cyan-300 font-semibold">Any public station</span>
+                <span class="px-4 py-1.5 rounded-full border border-cyan-400/60 bg-cyan-400/10 text-cyan-300 font-semibold">Owner API mode</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-20 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">What you get</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">One device per station, with sensors that behave like Home Assistant expects: proper device classes, long-term statistics and translations.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="rounded-2xl border border-slate-700/60 bg-slate-800/30 p-6">
+                    <i data-lucide="radiation" class="text-amber-400 w-7 h-7 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">CPM and dose rate</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Counts per minute plus µSv/h, from the station itself or calculated with a conversion factor you can tune to the tube.</p>
+                </div>
+                <div class="rounded-2xl border border-slate-700/60 bg-slate-800/30 p-6">
+                    <i data-lucide="siren" class="text-amber-400 w-7 h-7 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Radiation alert</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">A safety binary sensor that turns on at or above a CPM threshold you set. Hook it up to any notification.</p>
+                </div>
+                <div class="rounded-2xl border border-slate-700/60 bg-slate-800/30 p-6">
+                    <i data-lucide="wifi" class="text-amber-400 w-7 h-7 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Online check</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Know when a station stops reporting, including your own counter at home.</p>
+                </div>
+                <div class="rounded-2xl border border-slate-700/60 bg-slate-800/30 p-6">
+                    <i data-lucide="map-pin" class="text-amber-400 w-7 h-7 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Location built in</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Coordinates, place name and counter model as attributes and on the device page.</p>
+                </div>
+                <div class="rounded-2xl border border-slate-700/60 bg-slate-800/30 p-6">
+                    <i data-lucide="shield-check" class="text-amber-400 w-7 h-7 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Keeps working</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">A failed poll keeps the last good reading. Diagnostic sensors show poll health, and diagnostics redact your password.</p>
+                </div>
+                <div class="rounded-2xl border border-slate-700/60 bg-slate-800/30 p-6">
+                    <i data-lucide="heart-handshake" class="text-amber-400 w-7 h-7 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Plays nice</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">radmon.org is run by volunteers. Radmon polls gently and identifies itself, so the service stays up for everyone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="modes" class="py-20 bg-slate-900/40 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Owner mode or public mode</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">Enter a password and you're in owner mode. Leave it empty for public mode. You can switch later with Reconfigure.</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="rounded-2xl border border-amber-500/30 bg-amber-900/10 p-8">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2"><i data-lucide="key-round" class="text-amber-400"></i> Owner mode</h3>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li>For <span class="font-semibold text-white">your own station</span>, with its data-sending password</li>
+                        <li>Uses radmon.org's official <code class="text-amber-300">lastreading</code> API, which needs the password since May 2026</li>
+                        <li>Your station's own µSv/h value</li>
+                        <li>Every 5 minutes by default, down to 1 minute</li>
+                    </ul>
+                </div>
+                <div class="rounded-2xl border border-cyan-500/30 bg-cyan-900/10 p-8">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2"><i data-lucide="globe" class="text-cyan-300"></i> Public mode</h3>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li>For <span class="font-semibold text-white">any station</span>, just the name</li>
+                        <li>Reads the small public station page</li>
+                        <li>µSv/h calculated from CPM (default factor 0.0057, SBM-20)</li>
+                        <li>Every 30 minutes by default, minimum 15, to go easy on radmon.org</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="entities" class="py-20">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-start">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Entities you get</h2>
+                <p class="text-slate-400 mb-6">One device per station (<span class="font-mono text-slate-300">Radmon lImbus</span>).</p>
+                <div class="rounded-2xl border border-slate-700 bg-[#0d1326] p-6">
+                    <dl class="space-y-3 text-sm">
+                    <div class="flex justify-between gap-4 border-b border-slate-800 pb-3"><dt class="text-slate-400 font-mono text-xs sm:text-sm">sensor.…_cpm</dt><dd class="text-white text-right">counts per minute</dd></div>
+                    <div class="flex justify-between gap-4 border-b border-slate-800 pb-3"><dt class="text-slate-400 font-mono text-xs sm:text-sm">sensor.…_dose_rate</dt><dd class="text-white text-right">µSv/h</dd></div>
+                    <div class="flex justify-between gap-4 border-b border-slate-800 pb-3"><dt class="text-slate-400 font-mono text-xs sm:text-sm">sensor.…_last_reading</dt><dd class="text-white text-right">reading timestamp</dd></div>
+                    <div class="flex justify-between gap-4 border-b border-slate-800 pb-3"><dt class="text-slate-400 font-mono text-xs sm:text-sm">binary_sensor.…_online</dt><dd class="text-white text-right">readings are fresh</dd></div>
+                    <div class="flex justify-between gap-4"><dt class="text-slate-400 font-mono text-xs sm:text-sm">binary_sensor.…_radiation_alert</dt><dd class="text-white text-right">CPM ≥ threshold</dd></div>
+                    </dl>
+                </div>
+                <p class="text-slate-500 text-sm mt-4">Plus diagnostic sensors (consecutive errors, last update status and time), disabled by default.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-700 bg-[#0d1326] p-6">
+                <p class="text-xs font-mono text-slate-500 mb-3">Options</p>
+                <dl class="space-y-3 text-sm">
+                    <div class="flex justify-between gap-4 border-b border-slate-800 pb-3"><dt class="text-slate-400">Update interval</dt><dd class="text-white">5 min owner · 30 min public</dd></div>
+                    <div class="flex justify-between gap-4 border-b border-slate-800 pb-3"><dt class="text-slate-400">Conversion factor</dt><dd class="text-white">0.0057 µSv/h per CPM</dd></div>
+                    <div class="flex justify-between gap-4 border-b border-slate-800 pb-3"><dt class="text-slate-400">Alert threshold</dt><dd class="text-white">100 CPM</dd></div>
+                    <div class="flex justify-between gap-4"><dt class="text-slate-400">Offline after</dt><dd class="text-white">30 min</dd></div>
+                </dl>
+                <p class="text-xs text-slate-500 mt-5">A daily watcher checks that the radmon.org endpoints still answer as documented and opens an issue if they change.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="automations" class="py-20 bg-slate-900/40 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Act on it</h2>
+                <p class="text-slate-400 mb-6">Get a push notification when the alert turns on, or when your own counter stops uploading. Long-term statistics make a 7-day CPM graph a one-card job.</p>
+                <p class="text-xs text-amber-300/80">Radmon is not a safety device. Readings come from volunteers' hardware and can be late or wrong.</p>
+            </div>
+            <pre class="rounded-xl bg-[#0d1326] border border-slate-700 p-4 text-xs text-slate-300 overflow-x-auto"><code>triggers:
+  - trigger: state
+    entity_id: binary_sensor.radmon_limbus_radiation_alert
+    to: "on"
+actions:
+  - action: notify.mobile_app_your_phone
+    data:
+      title: "☢️ Radiation alert"
+      message: "{{ states('sensor.radmon_limbus_cpm') }} CPM"</code></pre>
+        </div>
+    </section>
+
+    <section id="installation" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Installation</h2>
+                <p class="text-slate-400">HACS, a restart, and a station name.</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="rounded-2xl border border-slate-700/50 bg-slate-800/30 p-8">
+                    <h3 class="text-2xl font-bold text-white mb-6">HACS</h3>
+                    <ol class="space-y-4 text-sm text-slate-300">
+                        <li>1. Click <a class="text-amber-300 hover:underline" href="https://my.home-assistant.io/redirect/hacs_repository/?owner=DonTranQuiL&amp;repository=HA-Radmon&amp;category=integration">Open in HACS</a>, or add <code class="text-amber-300">https://github.com/DonTranQuiL/HA-Radmon</code> as a custom repository (category Integration).</li>
+                        <li>2. Download Radmon and restart Home Assistant.</li>
+                        <li>3. Settings → Devices &amp; services → Add integration → Radmon, then enter a station name from the <a class="text-amber-300 hover:underline" href="https://radmon.org/index.php/stations">station list</a>.</li>
+                    </ol>
+                </div>
+                <div class="rounded-2xl border border-amber-500/30 bg-amber-900/10 p-8">
+                    <h3 class="text-xl font-bold text-white mb-3">Upgrading from 1.x</h3>
+                    <p class="text-sm text-slate-300 mb-4">Existing entries migrate to public mode automatically and keep their entity IDs and history. Delete the old <code class="text-amber-300">custom_components/ha-radmon</code> folder after updating.</p>
+                    <p class="text-sm text-slate-400">Full docs, dashboard YAML and troubleshooting are in the <a class="text-amber-300 hover:underline" href="https://github.com/DonTranQuiL/HA-Radmon#readme">README</a>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#050810] border-t border-slate-800 py-12 text-sm text-slate-500">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8">
+            <div>
+                <div class="flex items-center gap-2 text-slate-300 font-bold text-lg mb-3">
+                    <img src="icon.png" alt="" class="w-6 h-6 rounded-md"> Radmon
+                </div>
+                <p class="max-w-md mb-3">Maintained by DonTranQuiL. Unofficial. Not affiliated with radmon.org. Not a safety device.</p>
+                <p>Data from <a class="hover:text-white underline" href="https://radmon.org">radmon.org</a>, a free volunteer-run service fed by its station owners. Consider supporting it.</p>
+            </div>
+            <div class="md:text-right space-y-2">
+                <p><a class="hover:text-white" href="https://github.com/DonTranQuiL/HA-Radmon">Repository</a></p>
+                <p><a class="hover:text-white" href="https://github.com/DonTranQuiL/HA-Radmon/issues">Issues</a></p>
+                <p><a class="hover:text-white" href="https://discord.gg/qaHPTTKHae">Discord</a></p>
+                <p><a class="hover:text-white" href="https://ko-fi.com/DonTranQuiL">Ko-fi</a></p>
+                <p><a class="hover:text-white" href="https://dontranquil.github.io/">All integrations</a></p>
+                <p class="pt-2">MIT</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => { if (window.lucide) lucide.createIcons(); });
+    </script>
+</body>
+</html>
