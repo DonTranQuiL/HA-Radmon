@@ -22,6 +22,8 @@
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-000000?style=flat-square)](https://github.com/astral-sh/ruff)
 [![Discord](https://img.shields.io/badge/Discord-join-5865F2?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/qaHPTTKHae)
 [![Ko-fi](https://img.shields.io/badge/buy%20me%20a%20coffee-ko--fi-ff5e5b?style=flat-square&logo=kofi&logoColor=white)](https://ko-fi.com/DonTranQuiL)
+[![Liberapay patrons](https://img.shields.io/liberapay/patrons/Malosaaa.svg?logo=liberapay&style=flat-square)](https://liberapay.com/Malosaaa/donate)
+[![Liberapay goal](https://img.shields.io/liberapay/goal/Malosaaa.svg?logo=liberapay&style=flat-square)](https://liberapay.com/Malosaaa/donate)
 
 [Install](#installation) · [Modes](#owner-mode-or-public-mode) · [Entities](#entities) · [Dashboard](#dashboard-example) · [Automations](#automation-examples) · [Upgrading from 1.x](#upgrading-from-1x) · [Docs site](https://dontranquil.github.io/HA-Radmon/)
 
@@ -237,7 +239,9 @@ Unofficial. Not affiliated with radmon.org. Radmon is not a safety device and it
 - Docs: [dontranquil.github.io/HA-Radmon](https://dontranquil.github.io/HA-Radmon/)
 - Issues: [GitHub Issues](https://github.com/DonTranQuiL/HA-Radmon/issues)
 - Community: [Discord](https://discord.gg/qaHPTTKHae)
-- Tip jar: [Ko-fi](https://ko-fi.com/DonTranQuiL)
+- Tip jar: [Ko-fi](https://ko-fi.com/DonTranQuiL) · [Liberapay](https://liberapay.com/Malosaaa/donate)
+
+<a href="https://ko-fi.com/DonTranQuiL"><img alt="Support me on Ko-fi" src="https://ko-fi.com/img/githubbutton_sm.svg" height="30"></a> <a href="https://liberapay.com/Malosaaa/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
 
 ## License
 
