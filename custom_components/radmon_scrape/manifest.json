@@ -1,10 +1,6 @@
 {
   "domain": "radmon_scrape",
   "name": "Radmon",
-  "categories": [
-    "sensors",
-    "weather_alerts.public_warnings"
-  ],
   "codeowners": [
     "@DonTranQuiL"
   ],
