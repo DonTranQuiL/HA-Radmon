@@ -279,6 +279,10 @@ async def test_diagnostics_redacts_password(
     assert PASSWORD not in json.dumps(diag)
     assert diag["coordinator"]["mode"] == "owner"
     assert diag["coordinator"]["data"]["cpm"] == 18
+    assert diag["entry"]["title"] == "**REDACTED**"
+    assert diag["entry"]["data"]["station"] == "**REDACTED**"
+    for key in ("location", "latitude", "longitude"):
+        assert diag["coordinator"]["data"][key] in ("**REDACTED**", None)
     assert diag["version"] == const.VERSION
 
 

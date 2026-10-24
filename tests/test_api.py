@@ -90,3 +90,28 @@ def test_parse_station_page_without_coordinates():
     assert page.location == "Somewhere & else"
     assert page.latitude is None
     assert page.device is None
+
+
+class _FailingSession:
+    """Session whose GET raises like aiohttp does on raise_for_status()."""
+
+    def get(self, url, params=None, **_kwargs):
+        import aiohttp
+        from yarl import URL
+
+        info = aiohttp.RequestInfo(
+            URL(url).with_query(params or {}), "GET", {}, URL(url)
+        )
+        raise aiohttp.ClientResponseError(info, (), status=500, message="boom")
+
+
+async def test_http_error_never_leaks_password():
+    """A 5xx must not put the URL (with the password) into the error text."""
+    from custom_components.radmon_scrape.api import RadmonClient, RadmonConnectionError
+
+    client = RadmonClient(_FailingSession(), "station", "s3cretpw")
+    with pytest.raises(RadmonConnectionError) as exc:
+        await client.async_last_reading()
+    assert "s3cretpw" not in str(exc.value)
+    assert "HTTP 500" in str(exc.value)
+    assert exc.value.__cause__ is None

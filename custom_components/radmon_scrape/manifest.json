@@ -13,5 +13,5 @@
     "custom_components.radmon_scrape"
   ],
   "requirements": [],
-  "version": "2.0.0"
+  "version": "2.0.1"
 }

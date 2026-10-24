@@ -172,10 +172,18 @@ class RadmonClient:
                     )
                 response.raise_for_status()
                 return await response.text()
-        except TimeoutError as err:
-            raise RadmonConnectionError("Timed out talking to radmon.org") from err
+        except TimeoutError:
+            raise RadmonConnectionError("Timed out talking to radmon.org") from None
+        except aiohttp.ClientResponseError as err:
+            # Never include str(err): it contains the request URL, and with it
+            # the station's data-sending password.
+            raise RadmonConnectionError(
+                f"radmon.org returned HTTP {err.status}"
+            ) from None
         except aiohttp.ClientError as err:
-            raise RadmonConnectionError(f"Error talking to radmon.org: {err}") from err
+            raise RadmonConnectionError(
+                f"Error talking to radmon.org ({type(err).__name__})"
+            ) from None
 
     async def async_last_reading(self, usv: bool = False) -> LastReading:
         """Return the station's last reading (owner mode)."""

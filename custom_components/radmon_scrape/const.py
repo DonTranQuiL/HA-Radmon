@@ -4,7 +4,7 @@ from __future__ import annotations
 
 DOMAIN = "radmon_scrape"
 NAME = "Radmon"
-VERSION = "2.0.0"
+VERSION = "2.0.1"
 MANUFACTURER = "radmon.org"
 
 BASE_URL = "https://radmon.org"

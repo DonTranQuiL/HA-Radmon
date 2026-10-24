@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.1
+
+### Security
+- HTTP errors from radmon.org no longer carry the request URL (which holds the data-sending
+  password) into error messages, logs, the status attribute or diagnostics. Only the HTTP
+  status code is reported.
+- Diagnostics now also redact the station name, entry title, location and coordinates.
+
 ## 2.0.0 (unreleased)
 
 A full rewrite. The 1.x code scraped the radmon.org Joomla station page and lived in a
