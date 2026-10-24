@@ -50,11 +50,18 @@
 
 ### HACS (recommended)
 
-Click the **Open in HACS** button above, or add the repository yourself:
+**Radmon** is submitted to the **HACS default list**, so you can install it straight from the HACS store:
 
-1. HACS → ⋮ → **Custom repositories**
-2. URL: `https://github.com/DonTranQuiL/HA-Radmon`, category **Integration**
-3. Download **Radmon**, then restart Home Assistant
+1. Open **HACS** (or click **Open in HACS** above) in your sidebar and search for **Radmon**.
+2. Open it and click **Download**.
+3. **Restart Home Assistant.**
+
+<details>
+<summary>Fallback: add as a custom repository</summary>
+
+If Radmon does not show up in the HACS search (yet), click the three dots (⋮) in the top right of HACS → **Custom repositories**, paste `https://github.com/DonTranQuiL/HA-Radmon` with category **Integration**, click **Add**, then continue with step 2.
+
+</details>
 
 ### Manual
 
